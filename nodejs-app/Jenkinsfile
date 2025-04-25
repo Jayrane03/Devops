@@ -1,0 +1,38 @@
+node {
+    // Set up environment
+    def appName = 'nodejs-app'
+    def repoUrl = 'https://github.com/Jayrane03/Devops'
+
+    stage('Clone Repository') {
+        git url: repoUrl, branch: 'main'
+    }
+
+    stage('Install Dependencies') {
+        sh 'npm install'
+    }
+
+    stage('Run Tests') {
+        // If you have tests, you can run them here
+        sh 'npm test'
+    }
+
+    stage('Build') {
+        // You can run build steps here if required
+        echo 'Building the app'
+    }
+
+    stage('Deploy') {
+        // For simplicity, deploying locally here
+        sh 'npm start'
+    }
+
+    // Post-build actions (cleanup, notifications, etc.)
+    post {
+        success {
+            echo 'Build and Deploy successful!'
+        }
+        failure {
+            echo 'Build failed!'
+        }
+    }
+}
