@@ -4,7 +4,7 @@ node {
     def repoUrl = 'https://github.com/Jayrane03/Devops'
 
     stage('Clone Repository') {
-        git url: repoUrl, branch: 'main'
+        git url: repoUrl, branch: 'master'
     }
 
     stage('Install Dependencies') {
