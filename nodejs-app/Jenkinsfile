@@ -2,18 +2,23 @@ node {
     // Set up environment
     def appName = 'nodejs-app'
     def repoUrl = 'https://github.com/Jayrane03/Devops'
+    def appDir = 'node-app'  // The folder where your app is located
 
     stage('Clone Repository') {
         git url: repoUrl, branch: 'master'
     }
 
     stage('Install Dependencies') {
-        sh 'npm install'
+        dir(appDir) {
+            bat 'npm install'
+        }
     }
 
     stage('Run Tests') {
         // If you have tests, you can run them here
-        sh 'npm test'
+        dir(appDir) {
+            bat 'npm test'
+        }
     }
 
     stage('Build') {
@@ -23,7 +28,9 @@ node {
 
     stage('Deploy') {
         // For simplicity, deploying locally here
-        sh 'npm start'
+        dir(appDir) {
+            bat 'npm start'
+        }
     }
 
     // Post-build actions (cleanup, notifications, etc.)
